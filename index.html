@@ -791,4 +791,258 @@
       }
 
       .sidebar.open { transform: translateX(0); }
-      .sidebar.open .brand-name, .sidebar.open .nav-label, .sidebar.open .nav-btn span, .sidebar.open .nav-pill, .sidebar.open .workspace-card, .sideba
+      .sidebar.open .brand-name, .sidebar.open .nav-label, .sidebar.open .nav-btn span, .sidebar.open .nav-pill, .sidebar.open .workspace-card, .sidebar.open .user-copy, .sidebar.open .user > i { display: initial; }
+      .sidebar.open .brand { justify-content: flex-start; padding: 0 10px; }
+      .sidebar.open .nav-btn { justify-content: flex-start; padding: 11px 12px; }
+      .sidebar.open .user { justify-content: flex-start; padding: 12px 9px 0; }
+
+      .mobile-menu { display: block; }
+      .topbar { height: 65px; padding: 0 18px; }
+      .crumb { display: none; }
+      .top-actions { margin-left: auto; }
+      .top-icon:first-child { display: none; }
+      .content { padding: 27px 17px 38px; }
+      .page-intro { display: block; margin-bottom: 22px; }
+      h1 { font-size: 33px; }
+      .intro-description { font-size: 13px; }
+      .new-project { margin-top: 20px; }
+      .create-card { min-height: 445px; padding: 20px; }
+      .create-main { margin-top: 48px; }
+      .create-main h2 { font-size: 32px; }
+      .card-top { align-items: flex-start; }
+      .model-switch { white-space: nowrap; }
+      .side-stack { grid-template-columns: 1fr; }
+      .project-grid { grid-template-columns: 1fr; }
+      .project { min-height: auto; }
+      .project-art { height: 82px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#">
+        <div class="brand-logo">A</div>
+        <div class="brand-name">AI AZIZ<small>CREATIVE INTELLIGENCE</small></div>
+      </a>
+
+      <nav>
+        <div class="nav-group">
+          <span class="nav-label">Workspace</span>
+          <button class="nav-btn active"><i class="ph ph-sparkle"></i><span>AI AZIZ Create</span></button>
+          <button class="nav-btn"><i class="ph ph-squares-four"></i><span>Projects</span><b class="nav-pill">12</b></button>
+          <button class="nav-btn"><i class="ph ph-clock-counter-clockwise"></i><span>History</span></button>
+        </div>
+
+        <div class="nav-group">
+          <span class="nav-label">Explore</span>
+          <button class="nav-btn"><i class="ph ph-compass"></i><span>Discover</span></button>
+          <button class="nav-btn"><i class="ph ph-stack"></i><span>Model library</span></button>
+          <button class="nav-btn"><i class="ph ph-book-open-text"></i><span>Prompt guides</span></button>
+        </div>
+      </nav>
+
+      <div class="workspace-card">
+        <p>Your studio</p>
+        <strong>AZIZ Pro Workspace</strong>
+        <button class="mini-btn">Manage workspace</button>
+      </div>
+<div class="user">
+        <div class="avatar">AZ</div>
+        <div class="user-copy"><strong>Aziz Rahman</strong><span>Pro creator</span></div>
+        <i class="ph ph-caret-up-down"></i>
+      </div>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <button class="mobile-menu" id="menuButton" aria-label="Open menu"><i class="ph ph-list"></i></button>
+        <div class="crumb"><span>AI AZIZ</span><i class="ph ph-caret-right"></i><strong>Create studio</strong></div>
+        <div class="top-actions">
+          <button class="top-icon" aria-label="Search"><i class="ph ph-magnifying-glass"></i></button>
+          <button class="top-icon" aria-label="Notifications"><i class="ph ph-bell"></i></button>
+          <div class="avatar">AZ</div>
+        </div>
+      </header>
+
+      <div class="content">
+        <section class="page-intro">
+          <div>
+            <div class="eyebrow"><span></span> Your creative command center</div>
+            <h1>Make something that<br>moves the culture.</h1>
+            <p class="intro-description">Create cinematic visual systems, campaigns and ideas with the intelligence of AI AZIZ.</p>
+          </div>
+          <button class="new-project" id="newProject"><i class="ph ph-plus"></i> New project</button>
+        </section>
+
+        <section class="studio-grid">
+          <article class="card create-card">
+            <div class="card-top">
+              <div class="card-kicker"><span class="signal"></span> Canvas online</div>
+              <button class="model-switch">Grok 4.6 <i class="ph ph-caret-down"></i></button>
+            </div>
+
+            <div class="create-main">
+              <h2>AI AZIZ <em>CREATE</em></h2>
+              <p>Google-precision models on an AZIZ cinematic canvas.</p>
+            </div>
+
+            <div class="prompt-box">
+              <textarea id="prompt" placeholder="Describe your next impossible idea..." aria-label="Creative prompt"></textarea>
+              <button class="send-btn" id="sendPrompt" aria-label="Create"><i class="ph ph-arrow-up"></i></button>
+            </div>
+          </article>
+
+          <div class="side-stack">
+            <article class="card insight-card">
+              <div class="section-heading">
+                <h3>Creative pulse</h3>
+                <button class="more"><i class="ph ph-dots-three"></i></button>
+              </div>
+              <div class="stat-row">
+                <div class="stat"><span>Generations</span><strong>248 <b>+18%</b></strong></div>
+                <div class="stat"><span>Hours saved</span><strong>36.4</strong></div>
+              </div>
+              <div class="tiny-chart" aria-label="Generation activity chart">
+                <span style="height:34%"></span><span style="height:53%"></span><span style="height:42%"></span>
+                <span style="height:72%"></span><span style="height:59%"></span><span style="height:92%"></span>
+                <span style="height:70%"></span><span style="height:100%"></span><span style="height:83%"></span>
+                <span style="height:68%"></span><span style="height:88%"></span>
+              </div>
+            </article>
+
+<article class="card recent-card">
+              <div class="section-heading">
+                <h3>Continue creating</h3>
+                <button class="more"><i class="ph ph-arrow-right"></i></button>
+              </div>
+              <div class="recent-list">
+                <div class="recent-item">
+                  <div class="recent-icon"><i class="ph ph-image"></i></div>
+                  <div class="recent-copy"><strong>Neon desert campaign</strong><span>Edited 12 min ago</span></div>
+                  <i class="ph ph-caret-right"></i>
+                </div>
+                <div class="recent-item">
+                  <div class="recent-icon pink"><i class="ph ph-film-strip"></i></div>
+                  <div class="recent-copy"><strong>Velvet motion study</strong><span>Edited yesterday</span></div>
+                  <i class="ph ph-caret-right"></i>
+                </div>
+                <div class="recent-item">
+                  <div class="recent-icon blue"><i class="ph ph-cube"></i></div>
+                  <div class="recent-copy"><strong>Future objects / 01</strong><span>Edited 3 days ago</span></div>
+                  <i class="ph ph-caret-right"></i>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="lower-grid">
+          <article class="card projects-card">
+            <div class="section-heading">
+              <div>
+                <h3>Selected projects</h3>
+                <p class="card-subtitle">Your latest worlds, in progress.</p>
+              </div>
+              <button class="more"><i class="ph ph-arrow-up-right"></i></button>
+            </div>
+            <div class="project-grid">
+              <div class="project">
+                <div class="project-art"><span>EDITORIAL / 04</span></div>
+                <strong>Chromatic Stories</strong>
+                <small>23 assets · Updated today</small>
+              </div>
+              <div class="project">
+                <div class="project-art"><span>IDENTITY / 07</span></div>
+                <strong>Oceanic Signals</strong>
+                <small>18 assets · Updated yesterday</small>
+              </div>
+              <div class="project">
+                <div class="project-art"><span>MOTION / 12</span></div>
+                <strong>Midnight Frequency</strong>
+                <small>42 assets · Updated May 18</small>
+              </div>
+            </div>
+          </article>
+
+<article class="card models-card">
+            <div class="section-heading">
+              <div>
+                <h3>Models ready</h3>
+                <p class="card-subtitle">Precision tuned for your canvas.</p>
+              </div>
+              <button class="more"><i class="ph ph-sliders-horizontal"></i></button>
+            </div>
+            <div class="model-list">
+              <div class="model-row">
+                <div class="model-orb">G</div>
+                <div class="model-info"><strong>Grok 4.6</strong><small>Concept & visual direction</small></div>
+                <span class="status">Live</span>
+              </div>
+              <div class="model-row">
+                <div class="model-orb">D</div>
+                <div class="model-info"><strong>Deca 2.5 Mini</strong><small>Fast cinematic iterations</small></div>
+                <span class="status">Live</span>
+              </div>
+              <div class="model-row">
+                <div class="model-orb">A</div>
+                <div class="model-info"><strong>AZIZ Motion</strong><small>Sequences & moving image</small></div>
+                <span class="status">Live</span>
+              </div>
+            </div>
+          </article>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <div class="toast" id="toast"><i class="ph ph-check-circle"></i><span>Your AI AZIZ canvas is ready.</span></div>
+
+  <script>
+    const sidebar = document.getElementById('sidebar');
+    const menuButton = document.getElementById('menuButton');
+    const toast = document.getElementById('toast');
+    const prompt = document.getElementById('prompt');
+
+    function showToast(message) {
+      toast.querySelector('span').textContent = message;
+      toast.classList.add('show');
+      clearTimeout(window.toastTimer);
+      window.toastTimer = setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    menuButton.addEventListener('click', () => sidebar.classList.toggle('open'));
+
+    document.getElementById('newProject').addEventListener('click', () => {
+      prompt.focus();
+      showToast('New AI AZIZ project initialized.');
+    });
+
+    document.getElementById('sendPrompt').addEventListener('click', () => {
+      const value = prompt.value.trim();
+      if (value) {
+        showToast('Creating your cinematic canvas...');
+        prompt.value = '';
+      } else {
+        prompt.focus();
+        showToast('Start with an idea for AI AZIZ.');
+      }
+    });
+
+    prompt.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' && !event.shiftKey) {
+        event.preventDefault();
+        document.getElementById('sendPrompt').click();
+      }
+    });
+
+    document.querySelectorAll('.nav-btn').forEach(button => {
+      button.addEventListener('click', () => {
+        document.querySelectorAll('.nav-btn').forEach(item => item.classList.remove('active'));
+        button.classList.add('active');
+        if (window.innerWidth <= 700) sidebar.classList.remove('open');
+      });
+    });
+  </script>
+</body>
+</html>
