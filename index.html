@@ -792,3 +792,53 @@
 
       .sidebar.open { transform: translateX(0); }
       .sidebar.open .brand-name, .sidebar.open .nav-label, .sidebar.open .nav-btn span, .sidebar.open .nav-pill, .sidebar.open .workspace-card, .sideba
+<script>
+  const sidebar = document.getElementById('sidebar');
+  const menuButton = document.getElementById('menuButton');
+  const toast = document.getElementById('toast');
+  const prompt = document.getElementById('prompt');
+
+  function showToast(message) {
+    if (!toast) return;
+    const span = toast.querySelector('span');
+    if (span) span.textContent = message;
+    toast.classList.add('show');
+    clearTimeout(window.toastTimer);
+    window.toastTimer = setTimeout(() => toast.classList.remove('show'), 3000);
+  }
+
+  menuButton?.addEventListener('click', () => sidebar?.classList.toggle('open'));
+
+  document.getElementById('newProject')?.addEventListener('click', () => {
+    prompt?.focus();
+    showToast('New AI AZIZ project initialized.');
+  });
+
+  document.getElementById('sendPrompt')?.addEventListener('click', () => {
+    if (!prompt) return;
+    const value = prompt.value.trim();
+    if (value) {
+      showToast('Creating your cinematic canvas...');
+      prompt.value = '';
+    } else {
+      prompt.focus();
+      showToast('Start with an idea for AI AZIZ.');
+    }
+  });
+
+  prompt?.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault();
+      document.getElementById('sendPrompt')?.click();
+    }
+  });
+
+  document.querySelectorAll('.nav-btn, .sidebar-icon, nav a').forEach(button => {
+    button.addEventListener('click', () => {
+      document.querySelectorAll('.nav-btn, .sidebar-icon, nav a').forEach(item => item.classList.remove('active'));
+      button.classList.add('active');
+      if (window.innerWidth <= 700) sidebar?.classList.remove('open');
+    });
+  });
+</script>
+    
