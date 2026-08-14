@@ -1000,54 +1000,40 @@
   <div class="toast" id="toast"><i class="ph ph-check-circle"></i><span>Your AI AZIZ canvas is ready.</span></div>
 
   <script>
-  const sidebar = document.getElementById('sidebar');
-  const menuButton = document.getElementById('menuButton');
-  const toast = document.getElementById('toast');
-  const prompt = document.getElementById('prompt');
+  document.addEventListener('DOMContentLoaded', () => {
+    // 1. تفعيل فتح وإغلاق القائمة الجانبية عند الضغط على أي أيقونة قائمة
+    const sidebar = document.querySelector('.sidebar, sidebar, aside, #sidebar');
+    
+    document.addEventListener('click', (e) => {
+      // البحث عن أقرب عنصر قابل للنقر (زر، رابط، أو أيقونة)
+      const target = e.target.closest('button, a, .sidebar-icon, [role="button"], .nav-btn');
+      
+      if (!target) return;
 
-  function showToast(message) {
-    if (!toast) return;
-    const span = toast.querySelector('span');
-    if (span) span.textContent = message;
-    toast.classList.add('show');
-    clearTimeout(window.toastTimer);
-    window.toastTimer = setTimeout(() => toast.classList.remove('show'), 3000);
-  }
+      // إضافة تأثير بصرية ملموسة عند الضغط
+      target.style.opacity = '0.6';
+      setTimeout(() => target.style.opacity = '1', 150);
 
-  menuButton?.addEventListener('click', () => sidebar?.classList.toggle('open'));
+      // إذا كان العنصر يمثل زر القائمة الجانبية
+      if (target.matches('#menuButton, .menu-toggle, .ph-list, .ph-sidebar-simple')) {
+        sidebar?.classList.toggle('open');
+        sidebar?.classList.toggle('active');
+      }
 
-  document.getElementById('newProject')?.addEventListener('click', () => {
-    prompt?.focus();
-    showToast('New AI AZIZ project initialized.');
-  });
-
-  document.getElementById('sendPrompt')?.addEventListener('click', () => {
-    if (!prompt) return;
-    const value = prompt.value.trim();
-    if (value) {
-      showToast('Creating your cinematic canvas...');
-      prompt.value = '';
-    } else {
-      prompt.focus();
-      showToast('Start with an idea for AI AZIZ.');
-    }
-  });
-
-  prompt?.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter' && !event.shiftKey) {
-      event.preventDefault();
-      document.getElementById('sendPrompt')?.click();
-    }
-  });
-
-  document.querySelectorAll('.nav-btn, .sidebar-icon, nav a').forEach(button => {
-    button.addEventListener('click', () => {
-      document.querySelectorAll('.nav-btn, .sidebar-icon, nav a').forEach(item => item.classList.remove('active'));
-      button.classList.add('active');
-      if (window.innerWidth <= 700) sidebar?.classList.remove('open');
+      // إذا كان العنصر زر تنقل بين الأقسام
+      const href = target.getAttribute('href');
+      if (href && href.startsWith('#')) {
+        e.preventDefault();
+        const section = document.querySelector(href);
+        if (section) {
+          document.querySelectorAll('section, main > div').forEach(s => s.style.display = 'none');
+          section.style.display = 'block';
+        }
+      }
     });
   });
 </script>
+
 
 </body>
 </html>
