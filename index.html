@@ -1003,7 +1003,11 @@
     const sidebar = document.getElementById('sidebar');
     const menuButton = document.getElementById('menuButton');
     const toast = document.getElementById('toast');
-    const prompt = document.getElementById('prompt');
+    
+    // تعريف الأقسام الرئيسية في صفحتك (المحتوى الذي تريد إخفاءه وإظهاره)
+    // نبحث عن أي article أو section أو أي div رئيسي داخل main
+    const sections = document.querySelectorAll('main > div, section, article');
+    const navButtons = document.querySelectorAll('.sidebar-icon, .nav-btn, nav a');
 
     function showToast(message) {
       if (!toast) return;
@@ -1014,48 +1018,30 @@
       window.toastTimer = setTimeout(() => toast.classList.remove('show'), 3000);
     }
 
-    menuButton?.addEventListener('click', () => {
-      sidebar?.classList.toggle('open');
-    });
+    menuButton?.addEventListener('click', () => sidebar?.classList.toggle('open'));
 
-    document.getElementById('newProject')?.addEventListener('click', () => {
-      prompt?.focus();
-      showToast('New AI AZIZ project initialized.');
-    });
-
-    document.getElementById('sendPrompt')?.addEventListener('click', () => {
-      if (!prompt) return;
-      const value = prompt.value.trim();
-      if (value) {
-        showToast('Creating your cinematic canvas...');
-        prompt.value = '';
-      } else {
-        prompt.focus();
-        showToast('Start with an idea for AI AZIZ.');
-      }
-    });
-
-    // ربط أيقونات القائمة بالأقسام الموجودة في الصفحة
-    const sidebarIcons = document.querySelectorAll('.sidebar-icon, nav div, nav button');
-    const articles = document.querySelectorAll('article, section');
-
-    sidebarIcons.forEach((icon, index) => {
-      icon.addEventListener('click', (e) => {
+    navButtons.forEach((btn, index) => {
+      btn.addEventListener('click', (e) => {
         e.preventDefault();
-        
-        // تمييز الزر المضغوط
-        sidebarIcons.forEach(i => i.classList.remove('active'));
-        icon.classList.add('active');
 
-        // التمرير السلس إلى القسم المناظر للزر
-        if (articles[index]) {
-          articles[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
-          showToast('Navigated to section');
+        // 1. إخفاء جميع الأقسام
+        sections.forEach(s => s.style.display = 'none');
+
+        // 2. إظهار القسم المطلوب (نعتمد على ترتيب الأزرار مع ترتيب الأقسام)
+        if (sections[index]) {
+            sections[index].style.display = 'block';
         }
+
+        // 3. التنبيه البصري
+        showToast('View changed');
+        
+        // 4. إغلاق القائمة
+        if (window.innerWidth <= 700) sidebar?.classList.remove('open');
       });
     });
   });
 </script>
+
 
 </body>
 </html>
