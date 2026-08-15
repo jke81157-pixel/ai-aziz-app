@@ -1002,24 +1002,37 @@
   document.addEventListener("DOMContentLoaded", () => {
     const sidebar = document.getElementById('sidebar');
     const menuButton = document.getElementById('menuButton');
-    const navButtons = document.querySelectorAll('.sidebar-icon, .nav-btn, nav a');
+    const mainContent = document.querySelector('main');
 
-    // 1. فتح وإغلاق القائمة الجانبية فقط
-    menuButton?.addEventListener('click', () => {
-      sidebar?.classList.toggle('open');
-    });
+    // 1. زر فتح/إغلاق القائمة الجانبية (معزول تماماً عن باقي الأزرار)
+    if (menuButton && sidebar) {
+      menuButton.addEventListener('click', (e) => {
+        e.stopPropagation();
+        sidebar.classList.toggle('open');
+      });
+    }
 
-    // 2. تفعيل الأزرار (إضاءة الزر عند الضغط) دون تغيير أي شيء في الصفحة
-    navButtons.forEach((btn) => {
+    // 2. معالجة تفاعل أزرار الشريط الجانبي فقط
+    const navItems = document.querySelectorAll('.sidebar-icon, .nav-btn');
+
+    navItems.forEach((btn, index) => {
       btn.addEventListener('click', (e) => {
-        // إزالة التحديد من الجميع
-        navButtons.forEach(b => b.classList.remove('active'));
-        // إضافة التحديد للزر المضغوط
+        // إذا كان الزر هو زر القائمة نفسه، نرتجل التجاوز
+        if (btn === menuButton || btn.contains(menuButton)) return;
+
+        // تمييز الزر المنسق
+        navItems.forEach(i => i.classList.remove('active'));
         btn.classList.add('active');
 
-        // إغلاق القائمة الجانبية عند الضغط على الجوال
-        if (window.innerWidth <= 700) {
-            sidebar?.classList.remove('open');
+        // إرجاع الشاشة للأعلى بسلاسة مع التأكد من إظهار المحتوى الرئيسي
+        if (mainContent) {
+          mainContent.style.display = 'block';
+          mainContent.style.opacity = '1';
+        }
+
+        // إغلاق القائمة في الشاشات الصغيرة تلقائياً
+        if (window.innerWidth <= 700 && sidebar) {
+          sidebar.classList.remove('open');
         }
       });
     });
