@@ -1002,46 +1002,29 @@
   document.addEventListener("DOMContentLoaded", () => {
     const sidebar = document.getElementById('sidebar');
     const menuButton = document.getElementById('menuButton');
-    const toast = document.getElementById('toast');
-    
-    // تعريف الأقسام الرئيسية في صفحتك (المحتوى الذي تريد إخفاءه وإظهاره)
-    // نبحث عن أي article أو section أو أي div رئيسي داخل main
-    const sections = document.querySelectorAll('main > div, section, article');
     const navButtons = document.querySelectorAll('.sidebar-icon, .nav-btn, nav a');
 
-    function showToast(message) {
-      if (!toast) return;
-      const span = toast.querySelector('span');
-      if (span) span.textContent = message;
-      toast.classList.add('show');
-      clearTimeout(window.toastTimer);
-      window.toastTimer = setTimeout(() => toast.classList.remove('show'), 3000);
-    }
+    // 1. فتح وإغلاق القائمة الجانبية فقط
+    menuButton?.addEventListener('click', () => {
+      sidebar?.classList.toggle('open');
+    });
 
-    menuButton?.addEventListener('click', () => sidebar?.classList.toggle('open'));
-
-    navButtons.forEach((btn, index) => {
+    // 2. تفعيل الأزرار (إضاءة الزر عند الضغط) دون تغيير أي شيء في الصفحة
+    navButtons.forEach((btn) => {
       btn.addEventListener('click', (e) => {
-        e.preventDefault();
+        // إزالة التحديد من الجميع
+        navButtons.forEach(b => b.classList.remove('active'));
+        // إضافة التحديد للزر المضغوط
+        btn.classList.add('active');
 
-        // 1. إخفاء جميع الأقسام
-        sections.forEach(s => s.style.display = 'none');
-
-        // 2. إظهار القسم المطلوب (نعتمد على ترتيب الأزرار مع ترتيب الأقسام)
-        if (sections[index]) {
-            sections[index].style.display = 'block';
+        // إغلاق القائمة الجانبية عند الضغط على الجوال
+        if (window.innerWidth <= 700) {
+            sidebar?.classList.remove('open');
         }
-
-        // 3. التنبيه البصري
-        showToast('View changed');
-        
-        // 4. إغلاق القائمة
-        if (window.innerWidth <= 700) sidebar?.classList.remove('open');
       });
     });
   });
 </script>
-
 
 </body>
 </html>
