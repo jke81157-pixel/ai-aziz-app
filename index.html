@@ -999,26 +999,37 @@
   <div class="toast" id="toast"><i class="ph ph-check-circle"></i><span>Your AI AZIZ canvas is ready.</span></div>
 
   <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // التقاط العناصر الأساسية للواجهة
     const sidebar = document.getElementById('sidebar');
     const menuButton = document.getElementById('menuButton');
     const toast = document.getElementById('toast');
     const prompt = document.getElementById('prompt');
 
+    // دالة إظهار التنبيهات (Toast)
     function showToast(message) {
-      toast.querySelector('span').textContent = message;
+      if (!toast) return;
+      const span = toast.querySelector('span');
+      if (span) span.textContent = message;
       toast.classList.add('show');
       clearTimeout(window.toastTimer);
       window.toastTimer = setTimeout(() => toast.classList.remove('show'), 3000);
     }
 
-    menuButton.addEventListener('click', () => sidebar.classList.toggle('open'));
+    // 1. تفعيل زر القائمة الجانبية بأمان
+    menuButton?.addEventListener('click', () => {
+      sidebar?.classList.toggle('open');
+    });
 
-    document.getElementById('newProject').addEventListener('click', () => {
-      prompt.focus();
+    // 2. تفعيل زر مشروع جديد
+    document.getElementById('newProject')?.addEventListener('click', () => {
+      prompt?.focus();
       showToast('New AI AZIZ project initialized.');
     });
 
-    document.getElementById('sendPrompt').addEventListener('click', () => {
+    // 3. تفعيل زر إرسال الـ Prompt
+    document.getElementById('sendPrompt')?.addEventListener('click', () => {
+      if (!prompt) return;
       const value = prompt.value.trim();
       if (value) {
         showToast('Creating your cinematic canvas...');
@@ -1029,20 +1040,44 @@
       }
     });
 
-    prompt.addEventListener('keydown', (event) => {
+    // 4. تفعيل زر Enter عند كتابة النص
+    prompt?.addEventListener('keydown', (event) => {
       if (event.key === 'Enter' && !event.shiftKey) {
         event.preventDefault();
-        document.getElementById('sendPrompt').click();
+        document.getElementById('sendPrompt')?.click();
       }
     });
 
-    document.querySelectorAll('.nav-btn').forEach(button => {
-      button.addEventListener('click', () => {
-        document.querySelectorAll('.nav-btn').forEach(item => item.classList.remove('active'));
-        button.classList.add('active');
-        if (window.innerWidth <= 700) sidebar.classList.remove('open');
+    // 5. الشفرة الشاملة للتنقل بين الأقسام والأزرار
+    const navButtons = document.querySelectorAll('.nav-btn, .sidebar-icon, nav a, [data-tab]');
+    const sections = document.querySelectorAll('section, main > div, article');
+
+    navButtons.forEach((btn, index) => {
+      btn.addEventListener('click', (e) => {
+        // حماية الرابط واختيار القسم المناسب
+        const targetId = btn.getAttribute('href')?.replace('#', '') || btn.getAttribute('data-tab');
+        let targetSection = targetId ? document.getElementById(targetId) : null;
+
+        // إذا لم يتم تحديد ID، يتم الانتقال حسب الترتيب
+        if (!targetSection && sections[index]) {
+          targetSection = sections[index];
+        }
+
+        if (targetSection) {
+          sections.forEach(sec => sec.style.display = 'none');
+          targetSection.style.display = 'block';
+        }
+
+        // تمييز الزر النشط
+        navButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        // إغلاق القائمة في الشاشات الصغيرة
+        if (window.innerWidth <= 700) sidebar?.classList.remove('open');
       });
     });
-  </script>
+  });
+</script>
+
 </body>
 </html>
