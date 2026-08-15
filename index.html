@@ -998,7 +998,7 @@
 
   <div class="toast" id="toast"><i class="ph ph-check-circle"></i><span>Your AI AZIZ canvas is ready.</span></div>
 
-  <script>
+<script>
   document.addEventListener("DOMContentLoaded", () => {
     const sidebar = document.getElementById('sidebar');
     const menuButton = document.getElementById('menuButton');
@@ -1014,18 +1014,15 @@
       window.toastTimer = setTimeout(() => toast.classList.remove('show'), 3000);
     }
 
-    // 1. فتح وإغلاق القائمة الجانبية
     menuButton?.addEventListener('click', () => {
       sidebar?.classList.toggle('open');
     });
 
-    // 2. زر مشروع جديد
     document.getElementById('newProject')?.addEventListener('click', () => {
       prompt?.focus();
       showToast('New AI AZIZ project initialized.');
     });
 
-    // 3. زر إرسال الـ Prompt
     document.getElementById('sendPrompt')?.addEventListener('click', () => {
       if (!prompt) return;
       const value = prompt.value.trim();
@@ -1038,25 +1035,27 @@
       }
     });
 
-    // 4. تفعيل أزرار القائمة الجانبية والتنقل بذكاء دون إخفاء الواجهة
-    const navButtons = document.querySelectorAll('.sidebar-icon, .nav-btn, nav a, [data-tab]');
-    
-    navButtons.forEach((btn) => {
-      btn.addEventListener('click', (e) => {
+    // ربط أيقونات القائمة بالأقسام الموجودة في الصفحة
+    const sidebarIcons = document.querySelectorAll('.sidebar-icon, nav div, nav button');
+    const articles = document.querySelectorAll('article, section');
+
+    sidebarIcons.forEach((icon, index) => {
+      icon.addEventListener('click', (e) => {
         e.preventDefault();
+        
+        // تمييز الزر المضغوط
+        sidebarIcons.forEach(i => i.classList.remove('active'));
+        icon.classList.add('active');
 
-        // تغيير الزر النشط
-        navButtons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-
-        // التمرير إلى أعلى اللوحة بسلاسة
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-
-        // إغلاق القائمة في الشاشات الصغيرة
-        if (window.innerWidth <= 700) sidebar?.classList.remove('open');
+        // التمرير السلس إلى القسم المناظر للزر
+        if (articles[index]) {
+          articles[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
+          showToast('Navigated to section');
+        }
       });
     });
   });
 </script>
+
 </body>
 </html>
