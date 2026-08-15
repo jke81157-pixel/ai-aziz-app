@@ -1000,13 +1000,11 @@
 
   <script>
   document.addEventListener("DOMContentLoaded", () => {
-    // التقاط العناصر الأساسية للواجهة
     const sidebar = document.getElementById('sidebar');
     const menuButton = document.getElementById('menuButton');
     const toast = document.getElementById('toast');
     const prompt = document.getElementById('prompt');
 
-    // دالة إظهار التنبيهات (Toast)
     function showToast(message) {
       if (!toast) return;
       const span = toast.querySelector('span');
@@ -1016,18 +1014,18 @@
       window.toastTimer = setTimeout(() => toast.classList.remove('show'), 3000);
     }
 
-    // 1. تفعيل زر القائمة الجانبية بأمان
+    // 1. فتح وإغلاق القائمة الجانبية
     menuButton?.addEventListener('click', () => {
       sidebar?.classList.toggle('open');
     });
 
-    // 2. تفعيل زر مشروع جديد
+    // 2. زر مشروع جديد
     document.getElementById('newProject')?.addEventListener('click', () => {
       prompt?.focus();
       showToast('New AI AZIZ project initialized.');
     });
 
-    // 3. تفعيل زر إرسال الـ Prompt
+    // 3. زر إرسال الـ Prompt
     document.getElementById('sendPrompt')?.addEventListener('click', () => {
       if (!prompt) return;
       const value = prompt.value.trim();
@@ -1040,37 +1038,19 @@
       }
     });
 
-    // 4. تفعيل زر Enter عند كتابة النص
-    prompt?.addEventListener('keydown', (event) => {
-      if (event.key === 'Enter' && !event.shiftKey) {
-        event.preventDefault();
-        document.getElementById('sendPrompt')?.click();
-      }
-    });
-
-    // 5. الشفرة الشاملة للتنقل بين الأقسام والأزرار
-    const navButtons = document.querySelectorAll('.nav-btn, .sidebar-icon, nav a, [data-tab]');
-    const sections = document.querySelectorAll('section, main > div, article');
-
-    navButtons.forEach((btn, index) => {
+    // 4. تفعيل أزرار القائمة الجانبية والتنقل بذكاء دون إخفاء الواجهة
+    const navButtons = document.querySelectorAll('.sidebar-icon, .nav-btn, nav a, [data-tab]');
+    
+    navButtons.forEach((btn) => {
       btn.addEventListener('click', (e) => {
-        // حماية الرابط واختيار القسم المناسب
-        const targetId = btn.getAttribute('href')?.replace('#', '') || btn.getAttribute('data-tab');
-        let targetSection = targetId ? document.getElementById(targetId) : null;
+        e.preventDefault();
 
-        // إذا لم يتم تحديد ID، يتم الانتقال حسب الترتيب
-        if (!targetSection && sections[index]) {
-          targetSection = sections[index];
-        }
-
-        if (targetSection) {
-          sections.forEach(sec => sec.style.display = 'none');
-          targetSection.style.display = 'block';
-        }
-
-        // تمييز الزر النشط
+        // تغيير الزر النشط
         navButtons.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
+
+        // التمرير إلى أعلى اللوحة بسلاسة
+        window.scrollTo({ top: 0, behavior: 'smooth' });
 
         // إغلاق القائمة في الشاشات الصغيرة
         if (window.innerWidth <= 700) sidebar?.classList.remove('open');
@@ -1078,6 +1058,5 @@
     });
   });
 </script>
-
 </body>
 </html>
